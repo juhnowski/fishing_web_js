@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="js/libs/qunit.css">
+  <link rel="stylesheet" href="sprint1.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+  <style>
+    #resizable { width: 150px; height: 150px; padding: 0.5em; }
+    #resizable h3 { text-align: center; margin: 0; }
+    
+    .toggler { width: 500px; height: 200px; }
+    #button { padding: .5em 1em; text-decoration: none; }
+    #effect { width: 240px; height: 135px; padding: 0.4em; position: relative; }
+    #effect h3 { margin: 0; padding: 0.4em; text-align: center; }
+  </style>
+  <script>
+  $(function() {
+    $( "#resizable" ).resizable();
+    
+    // run the currently selected effect
+    function runEffect() {
+      // get effect type from
+      var selectedEffect = "Clip"; /* $( "#effectTypes" ).val(); */
+ 
+      // most effect types need no options passed by default
+      var options = {};
+      // some effects have required parameters
+      if ( selectedEffect === "scale" ) {
+        options = { percent: 100 };
+      } else if ( selectedEffect === "size" ) {
+        options = { to: { width: 280, height: 185 } };
+      }
+ 
+      // run the effect
+      $( "#effect" ).show( selectedEffect, options, 500, callback );
+    };
+ 
+    //callback function to bring a hidden box back
+    function callback() {
+      setTimeout(function() {
+        $( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+      }, 1000 );
+    };
+ 
+    // set effect from select menu value
+    $( "#button" ).click(function() {
+      runEffect();
+      return false;
+    });
+ 
+    $( "#effect" ).hide();    
+  });
+  </script>
+</head>
+<body>
+<div id="resizable" class="ui-widget-content">
+<!--  <h3 class="ui-widget-header">Игра</h3>
+!-->
+
+  <div id="game">
+  
+  <div class="toggler">
+    <div id="effect" class="ui-widget-content ui-corner-all">
+    <h3 class="ui-widget-header ui-corner-all">Show</h3>
+        <p> Тестовый диалог </p>
+    </div>
+  </div>
+      
+  <div id="header">
+        <a id="username" onclick="alert('Удачной рыбалки, Сергей Петров!')">Сергей Петров</a>
+        <img id="bait" src="img/bait.gif" onclick="alert('Выбор наживки')">
+        <img id="graphik" src="img/graphik.gif" onclick="alert('График поклевки')">
+        <div id="cast">
+            <a onclick="alert('Доступное количество забросов: 5')">Cast: 5</a>
+        </div>
+        <div id="fish">
+            <a onclick="alert('Количество пойманной рыбы: 0')">Fish: 0</a>
+        </div>
+        <div id="mass">
+            <a onclick="alert('Масса трофеев, гр.: 0')">Mass: 0</a>
+        </div>
+        <div id="type_fishing">
+            <table>
+              <tr>      
+                <td>
+                    <a onclick="runEffect();">Jerking</a> <!-- alert('Выбран тип проводки: Jerking') !-->`
+                </td>
+                <td>
+                    <a onclick="alert('Выбран тип проводки: Twitching')">Twitching</a>
+                </td>
+                <td>
+                    <a onclick="alert('Выбран тип проводки: WalkingDog')">WalkingDog</a>
+                </td>
+                <td>
+                    <a onclick="alert('Выбран тип проводки: Uniform')">Uniform</a>
+                </td>
+              </tr>
+            </table>
+        </div>
+        <img id="coil" src="img/coil.png" onclick="alert('Датчик положения катушки')">
+        <img id="tackle" src="img/tackle.png" onclick="alert('Датчик положения удочки')">
+        <div id="fishing_timer">
+        <!--TODO: повесить на onload функцию setTimeout("уменьшаем переменную на секунду; проверяем на 0, если ноль то alert('время вышло')",1000); -->
+        <a onclick="alert('До конца ловли осталось 15:00 минут')">15:00</a>
+        </div>      
+  </div>
+  
+  <div id="footer">
+        <div id="camera_pos">
+        <a onclick="alert('Датчик положения камеры')">X:10 Y:20 Z:30</a>
+        </div>
+        <div id="pulse">
+        <a onclick="alert('Пульс рыболова 90 ударов в минуту')">Pulse: 90</a>
+        </div>
+        <div id="tension">
+            <a onclick="alert('Датчик натяжения лески')">Tension:</a>
+        </div>
+        <div>
+            <canvas id="tension_canvas" onclick="alert('Датчик натяжения лески')">        
+            </canvas>
+        </div>      
+  </div>
+ </div>
+</div>    
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="js/libs/qunit-1.10.0/qunit-1.10.0.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>
